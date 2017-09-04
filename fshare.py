@@ -1,18 +1,16 @@
-import json
 import requests
 import curl
 import re
-from lxml import html, etree
 import pycurl
 from bs4 import BeautifulSoup
 import subprocess
-import glob
 import ctypes
-libc = ctypes.CDLL("libc.so.6")
 import signal
 import os
+libc = ctypes.CDLL("libc.so.6")
 
-def set_pdeathsig(sig = signal.SIGTERM):
+
+def set_pdeathsig(sig=signal.SIGTERM):
     def callable():
         return libc.prctl(1, sig)
     return callable
@@ -69,10 +67,3 @@ class Fshare:
             env['LD_LIBRARY_PATH'] = ''
             p = subprocess.Popen(cmd, shell=False, preexec_fn=set_pdeathsig(signal.SIGTERM), env=env)
             p.wait()
-
-
-
-
-# my_fshare = Fshare("generaltrung2@gmail.com", "!199485623")
-# my_fshare.get_folder("https://www.fshare.vn/folder/TS45W71JMT")
-

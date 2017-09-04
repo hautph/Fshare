@@ -2,8 +2,20 @@ import json
 import requests
 import curl
 import re
-from lxml import html
+from lxml import html, etree
 import pycurl
+from bs4 import BeautifulSoup
+import subprocess
+import glob
+import ctypes
+libc = ctypes.CDLL("libc.so.6")
+import signal
+import os
+
+def set_pdeathsig(sig = signal.SIGTERM):
+    def callable():
+        return libc.prctl(1, sig)
+    return callable
 
 
 class Fshare:
@@ -35,4 +47,32 @@ class Fshare:
         self.fshare.set_option(pycurl.FOLLOWLOCATION, 0)
         self.fshare.get(url=url).decode()
         return re.findall(r'(Location:)(.*)', self.fshare.header())[0][1].strip()
+
+    def get_folder_info(self, url):
+        page = requests.get(url)
+        h = BeautifulSoup(page.content, 'html.parser')
+        result = list()
+        for l in h.find_all(class_='filename', href=True, title=True):
+            if l.text.strip():
+                result.append((l['href'], l['title']))
+
+        return result
+
+    def get_folder(self, url):
+        link_list = self.get_folder_info(url)
+        for link in link_list:
+            l = self.get_link(link[0])
+            print(l)
+            print(link[1])
+            cmd = ['wget', '--restrict-file-names=nocontrol', l]
+            env = os.environ.copy()
+            env['LD_LIBRARY_PATH'] = ''
+            p = subprocess.Popen(cmd, shell=False, preexec_fn=set_pdeathsig(signal.SIGTERM), env=env)
+            p.wait()
+
+
+
+
+# my_fshare = Fshare("generaltrung2@gmail.com", "!199485623")
+# my_fshare.get_folder("https://www.fshare.vn/folder/TS45W71JMT")
 

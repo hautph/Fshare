@@ -36,10 +36,6 @@ class Fshare:
                           'LoginForm[checkloginpopup]': 0,
                           'yt0': u'Đăng nhập'}
             login_reponse = self.fshare.post(self.login_url, data_login).decode()
-            # print("HEADER")
-            # print(self.fshare.header())
-            # print("INFO")
-            # print(self.fshare.info())
 
     def get_link(self, url):
         self.fshare.set_option(pycurl.FOLLOWLOCATION, 0)

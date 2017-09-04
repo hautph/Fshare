@@ -16,7 +16,7 @@ def main():
     if len(list_argv) > 1:
         for link in list_argv[1::]:
             if link.find('fshare.vn/file') >= 0:
-                print(fshare.get_link(link))
+                fshare.get_link(link)
             else:
                 fshare.get_folder(link)
 

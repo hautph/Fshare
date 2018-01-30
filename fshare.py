@@ -7,6 +7,7 @@ import subprocess
 import ctypes
 import signal
 import os
+import json
 libc = ctypes.CDLL("libc.so.6")
 
 
@@ -21,26 +22,31 @@ class Fshare:
         self.email = email
         self.password = password
         self.fshare = curl.Curl(base_url="https://www.fshare.vn")
-        self.login_url = "login"
+        self.login_url = "site/login"
         self.download_url = "download/get"
         get_reponse = self.fshare.get(url=self.login_url).decode()
-        self.fs_csrf = re.findall(r'(\b[a-f0-9]+\b)(?=" name="fs_csrf")', get_reponse)[0]
+        self.fs_csrf = BeautifulSoup(get_reponse, 'html.parser').find("meta", attrs={'name': 'csrf-token'})\
+            .get("content")
         self.isLogin = False
 
     def login(self):
         if self.isLogin is False:
-            data_login = {'fs_csrf': self.fs_csrf,
+            data_login = {'_csrf-app': self.fs_csrf,
                           'LoginForm[email]': self.email,
                           'LoginForm[password]': self.password,
-                          'LoginForm[rememberMe]': 1,
-                          'LoginForm[checkloginpopup]': 0,
-                          'yt0': u'Đăng nhập'}
+                          'LoginForm[rememberMe]': 1}
             login_reponse = self.fshare.post(self.login_url, data_login).decode()
+            # print(login_reponse)
 
     def get_link(self, url):
-        self.fshare.set_option(pycurl.FOLLOWLOCATION, 0)
-        self.fshare.get(url=url).decode()
-        return re.findall(r'(Location:)(.*)', self.fshare.header())[0][1].strip()
+        data_get = {'_csrf-app': self.fs_csrf,
+                    'fcode5': '',
+                    'linkcode': url.split('/')[-1],
+                    'withFcode5': 0}
+        # self.fshare.set_option(pycurl.FOLLOWLOCATION, 0)
+        download_response = self.fshare.post(self.download_url, data_get).decode()
+        link = json.loads(download_response.splitlines()[-1])['url']
+        return link
 
     def get_folder_info(self, url):
         page = requests.get(url)
@@ -58,7 +64,7 @@ class Fshare:
             l = self.get_link(link[0])
             print(l)
             print(link[1])
-            cmd = ['wget', '--restrict-file-names=nocontrol', l]
+            cmd = ['wget', '--restrict-file-names=nocontrol', '-nc', l]
             env = os.environ.copy()
             env['LD_LIBRARY_PATH'] = ''
             p = subprocess.Popen(cmd, shell=False, preexec_fn=set_pdeathsig(signal.SIGTERM), env=env)

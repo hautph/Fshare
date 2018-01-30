@@ -1,7 +1,5 @@
 import requests
 import curl
-import re
-import pycurl
 from bs4 import BeautifulSoup
 import subprocess
 import ctypes
@@ -35,8 +33,7 @@ class Fshare:
                           'LoginForm[email]': self.email,
                           'LoginForm[password]': self.password,
                           'LoginForm[rememberMe]': 1}
-            login_reponse = self.fshare.post(self.login_url, data_login).decode()
-            # print(login_reponse)
+            self.fshare.post(self.login_url, data_login).decode()
 
     def get_link(self, url):
         data_get = {'_csrf-app': self.fs_csrf,

@@ -10,9 +10,9 @@ libc = ctypes.CDLL("libc.so.6")
 
 
 def set_pdeathsig(sig=signal.SIGTERM):
-    def callable():
+    def call_able():
         return libc.prctl(1, sig)
-    return callable
+    return call_able
 
 
 class Fshare:

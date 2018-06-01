@@ -1,5 +1,5 @@
-# GetLinkFshare
+# Tải Fshare bằng tài khoảng thường và VIP trên linux bằng Python 2.7
 
-## Get direct link file: getlinkFshare.py link
+## Cách sử dụng ./Fshare link_file_Fshare ( tải bằng folder sẽ tiếp tục phát triển )
 
-## Download folder: cd path_to_download && getlinkFshare.py link
+./Fshare.py https://www.fshare.vn/file/9AADRDB5HR68

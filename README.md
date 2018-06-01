@@ -2,7 +2,7 @@
 
 # Cài đặt các thư viện ( có thể cài bằng yum  hoặc pip )
 
-pip install beautifulsoup4 wget requests pycurl subprocess ctypes signal
+pip install beautifulsoup4 wget requests pycurl ptyprocess ctypes signal
 
 # Thông tin đăng nhập tài khoản Fshare thay đổi trong tập tin account.json, trong trường hợp không có thông tin đăng nhập hoặc thông tin đăng nhập với tài khoản thường sẽ tải về với tốc độ giới hạn
 

@@ -1,5 +1,6 @@
 import requests
 import curl
+import wget
 from bs4 import BeautifulSoup
 import subprocess
 import ctypes

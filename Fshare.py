@@ -1,6 +1,9 @@
 #!/usr/bin/env python
 from fshare import Fshare
 import sys
+reload(sys)
+sys.setdefaultencoding('utf8')
+import wget
 import json
 import os
 
@@ -16,7 +19,8 @@ def main():
     if len(list_argv) > 1:
         for link in list_argv[1::]:
             if link.find('fshare.vn/file') >= 0:
-                print(fshare.get_link(link))
+                # print(fshare.get_link(link))
+                wget.download(fshare.get_link(link))
             else:
                 fshare.get_folder(link)
 

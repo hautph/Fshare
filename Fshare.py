@@ -9,7 +9,7 @@ import os
 
 
 def main():
-    with open(os.path.join(os.path.dirname(__file__), 'acc_info.json'), 'r') as fp:
+    with open(os.path.join(os.path.dirname(__file__), 'account.json'), 'r') as fp:
         # global acc_info
         acc_info = json.load(fp=fp)
 

@@ -1,4 +1,4 @@
-# Tải Fshare bằng tài khoảng thường và VIP trên linux bằng Python 2.7
+# Tải Fshare bằng tài khoản thường và VIP trên linux bằng Python 2.7
 
 # Cài đặt các thư viện ( có thể cài bằng yum  hoặc pip )
 

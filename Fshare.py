@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-from fshare import Fshare
+from libfshare import Fshare
 import sys
 reload(sys)
 sys.setdefaultencoding('utf8')

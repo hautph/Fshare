@@ -10,7 +10,4 @@ pip install beautifulsoup4 wget requests pycurl ptyprocess wand blinker
 
 ./Fshare.py https://www.fshare.vn/file/YJHMDQ9U6Z9Z
 
-# Để download nhiều file có thể tạo file download.sh và chạy sh download.sh ( xem file mẫu đi kèm hoặc như bên dưới )
-./Fshare https://www.fshare.vn/file/YJHMDQ9U6Z9Z
-./Fshare https://www.fshare.vn/file/96TEAU89CMU3
-./Fshare https://www.fshare.vn/file/Q7IPQC5GMH9L
+# Để download nhiều file có thể tạo file download.sh và chạy sh download.sh ( xem file mẫu đi kèm )

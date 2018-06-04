@@ -21,10 +21,10 @@ def main():
             if link.find('fshare.vn/file') >= 0:
                 print(fshare.get_link(link))
                 wget.download(fshare.get_link(link))
+                print '\nDone !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!\n'
             else:
                 fshare.get_folder(link)
-
-print '\nDone !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!\n'
+                
 if __name__ == '__main__':
     main()
 

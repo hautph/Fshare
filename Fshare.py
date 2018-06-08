@@ -13,7 +13,7 @@ def main():
         # global acc_info
         acc_info = json.load(fp=fp)
 
-    fshare = Fshare(email=acc_info['email'], password=acc_info['pass'])
+    fshare = Fshare(email=account['email'], password=account['pass'])
     fshare.login()
     list_argv = sys.argv
     if len(list_argv) > 1:

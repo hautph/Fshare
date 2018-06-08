@@ -10,8 +10,8 @@ import os
 
 def main():
     with open(os.path.join(os.path.dirname(__file__), 'account.json'), 'r') as fp:
-        # global acc_info
-        acc_info = json.load(fp=fp)
+        # global account
+        account = json.load(fp=fp)
 
     fshare = Fshare(email=account['email'], password=account['pass'])
     fshare.login()
